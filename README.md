@@ -32,4 +32,6 @@
 
 
 ### Thank You
+<hr>
+<br>
 Thank you for using the Patient Report Management System. If you have any further questions or need assistance, please don't hesitate to reach out.
