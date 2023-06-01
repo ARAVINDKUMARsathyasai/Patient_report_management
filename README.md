@@ -1,6 +1,21 @@
 # Patient Report Management System
 ## Installation Steps 
 
+## Frontend technologies 
+
+* HTML5
+* CSS3
+* Theamleaf
+* Java Script5
+* Bootstrap5
+
+## Backend Technologies
+* Java
+* Spring boot
+* lombok
+* MySQL8
+* Java script
+
 ### Prerequisites
 
 * Ensure that you are using MySQL 8. If not, modify the following line in the configuration file (application.properties) to use the appropriate dialect for your   MySQL version: <br>
