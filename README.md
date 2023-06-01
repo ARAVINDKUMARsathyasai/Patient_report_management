@@ -1,6 +1,8 @@
 # Patient Report Management System
 ## Installation Steps 
 
+### Prerequisites
+
 * Ensure that you are using MySQL 8. If not, modify the following line in the configuration file (application.properties) to use the appropriate dialect for your   MySQL version: <br>
   **spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect**
 * Check if SMTP port number 587 is available. If not, change it to port number 465. It is not recommended to use port number 25, as it is for plain text        communication.
