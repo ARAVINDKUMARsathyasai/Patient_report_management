@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>PRM Management</title>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/css/DeveopInfo.css}">
+</head>
+<body>
+
+    <div class="menu">
+    	<div class="toggle"><ion-icon name="add-outline"></ion-icon></div>
+    	<li style="--i:0;">
+    		<a th:href="@{/admin/index}"><ion-icon name="home-outline"></ion-icon></a>
+    	</li>
+    	<li style="--i:1;">
+    		<a th:href="@{/admin/dashboard}"><ion-icon name="apps-outline"></ion-icon></a>
+    	</li>
+    	<li style="--i:2;">
+    		<a th:href="@{/admin/appointment}"><ion-icon name="notifications-outline"></ion-icon></a>
+    	</li>
+    	<li style="--i:3;">
+    		<a th:href="@{/admin/doctor}"><ion-icon name="people-circle-outline"></ion-icon></a>
+    	</li>
+    	<li style="--i:4;">
+    		<a th:href="@{/admin/patient}"><ion-icon name="bed-outline"></ion-icon></a>
+    	</li>
+    	<li style="--i:5;">
+    		<a th:href="@{/logout}"><ion-icon name="arrow-undo-outline"></ion-icon></a>
+    	</li>
+    </div>
+	
+	<div class="card">
+		<div class="imgBx">
+			<img th:src="@{http://localhost:8080/img/logo.png}">
+		</div>
+		
+		<div class="content">
+			<div class="details">
+				<h2>ARAVINDKUMAR BOBBA<br><span>FinTech Full Stack</span><br><span>Patient Record Management</span></h2>
+				<div class="data">
+					<h3>3<br><span>Projects</span></h3>
+					<h3>150<br><span>Users</span></h3>
+					<h3>50<br><span>Followers</span></h3>
+				</div>
+				<div class="actionBtn">
+					<button onclick="window.open('https://github.com/ARAVINDKUMARsathyasai')">Follow</button>
+					<button onclick="window.open('https://mail.google.com/mail/?view=cm&fs=1&to=manipalpatientrecord@gmail.com')">Message</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	  <script>
+		let toggle = document.querySelector('.toggle');
+		let menu = document.querySelector('.menu');
+		toggle.onclick = function(){
+			menu.classList.toggle('active')
+		}
+		
+	</script>	  
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+</body>
+</html>

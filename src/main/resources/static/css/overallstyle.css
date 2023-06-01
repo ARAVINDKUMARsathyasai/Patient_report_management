@@ -1,0 +1,80 @@
+.point-card{
+box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+}
+
+h2{
+	color:red;
+	bottom:15px;
+}
+.fs-7{
+font-family : "Times new roman";
+}
+.fs-5{
+font-family: "times new roman";
+font-weight: bold;
+}
+
+.fs-2,.fs-4{
+font-family: "lusida bright";
+font-weight: bold;
+}
+
+.nav-item,.navbar-brand,.p-1{
+font-family: "lusida bright";
+}
+
+.mb-3,.text-decoration-none,h9{
+	font-family : "lusida bright";
+}
+
+.btn{
+	font-family: "Imprint MT Shadow";
+}
+
+.hero{
+	width:100%;
+	height:93%;
+	background-image: linear-gradient(rgba(12,3,51,0.3),rgba(12,3,51,0.3));
+	position:relative;
+	padding:0 5%;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+
+nav{
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	padding:20px 8%;
+	display:flex;
+	align-items:center;
+}
+
+
+.back-video{
+	position:absolute;
+	right:0;
+	bottom:0;
+	z-index:-1;
+}
+
+
+@media (min-aspect-ratio:16/9){
+	.back-video{
+	   width:100%;
+	   height:auto;
+	}
+	
+	.form{
+	position:absolute;
+	}
+}
+
+@media (max-aspect-ratio:16/9){
+	.back-video{
+	   width:auto;
+	   height:100%;
+	}
+}

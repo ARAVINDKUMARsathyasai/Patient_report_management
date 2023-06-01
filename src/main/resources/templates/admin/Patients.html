@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>PRM Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+	crossorigin="anonymous" 
+	referrerpolicy="no-referrer" />
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/css/patientsAdmin.css}">
+ 
+    
+</head>
+<body>
+ 
+	 <script th:src="@{https://code.jquery.com/jquery-3.5.1.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js}"></script>
+	 
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+	 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+	 
+	 <script>
+		 $(document).ready(function() {
+			    $('#example').DataTable( {
+			        dom: 'Bfrtip',
+			        buttons: [
+			            'copyHtml5',
+			            'excelHtml5',
+			            'csvHtml5',
+			            'pdfHtml5'
+			        ]
+			    } );
+			} );
+	 </script>
+	 
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+	<div class="sidebar-brand">
+		<h2><span class="lab la-accusoft"></span><span>PRM</span></h2>
+	</div>
+	
+	<div class="sidebar-menu">
+		<ul>
+			<li><a th:href="@{/admin/dashboard}" ><span class="fas fa-desktop"></span>
+			<span>Dashboard</span>
+			</a></li>
+			  <li>
+                    <a th:href="@{/admin/patient}" class="active"><span class="fa-solid fa-bed"></span>
+                        <span>Patients</span></a>
+                </li>   
+                <li>
+                    <a th:href="@{/admin/appointment}"><span class="fa-solid fa-calendar-check"></span>
+                        <span>Appointments</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/doctor}"><span class="fa-solid fa-user-doctor"></span>
+                        <span>Doctors</span></a>
+                </li>
+				<li>
+                    <a th:href="@{/admin/payment}"><span>&#8377;</span>
+                        <span>Payments</span></a>
+                </li>
+		</ul>
+	</div>
+</div>
+
+<div class="main-content">
+  <header>
+      <h2>
+      	<label for="nav-toggle">
+      		<span class="las la-bars"></span>
+      	</label>
+      	Patients
+      </h2>
+      <div class="user-wrapper">
+          <img onclick="menuToggle();" th:src="@{http://localhost:8080/img/proooo.png}" width ="45px" height="45px" class="ppp" >
+          <div onclick="menuToggle();" class="info">
+           	<h6 th:text="${user.substring(0, user.indexOf(' '))}"></h6>
+           	<small>Admin</small>
+          </div>
+      </div>
+  </header>
+  
+  <main>
+  		
+  	
+<!--   	Main contents goes here -->
+      
+      <div class="card shadow">
+      	<div class="card-body">
+      		 <h1 class="p-2 text-center" style="border-bottom:2px solid orange">Patients List</h1>
+      			<div class="container-fluid">
+      				<table id="example" class="table table-bordered" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>Profile</th>
+				                <th>ID</th>
+				                <th>Email</th>
+				                <th>Name</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="user : ${users}">
+				                <td >
+				                <img alt="" th:src="@{'http://localhost:8080/img/'+${user.imageUrl}}" width=40px, height=40px style="border-radius: 50%;" >
+				                </td>
+				                <td th:text="MPAT0+${user.id}"></td>
+				                <td th:text="${user.email}"></td>
+				                <td th:text="${user.fullname}"></td>
+				            </tr>
+				        </tbody>
+				        <tfoot>
+				            <tr>
+				                <th>Profile</th>
+				                <th>ID</th>
+				                <th>Email</th>
+				                <th>Name</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+      			</div>
+    	</div>
+    </div>
+    <div class="container">	
+             <div class = "menu">
+                <h3>ADMIN <br><span th:text="${user}"></span></h3>
+                <ul>
+                     <li><img th:src="@{http://localhost:8080/img/homee.png}"><a th:href="@{/admin/index}">Home</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/edit.png}"><a th:href="@{/developerInfo}">Developer info</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/SignOut.png}"><a th:href="@{/logout}">Sign Out</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+  </main>
+</div>
+		<script>
+            function menuToggle(){
+                const toggleMenu = document.querySelector('.menu');
+                const toggleDiv = document.querySelector('.info');
+                const togglePic = document.querySelector('.ppp');
+                toggleMenu.classList.toggle('active');
+                toggleDiv.classList.toggle('active');
+                togglePic.classList.toggle('active');
+            }
+        </script>
+        
+</body>
+</html>

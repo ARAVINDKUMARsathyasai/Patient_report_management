@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>PRM Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+	crossorigin="anonymous" 
+	referrerpolicy="no-referrer" />
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/css/patientsAdmin.css}">
+ 
+    <style>
+        .opp{
+        	display: none;
+        	visibility: hidden;
+        }
+    </style>
+    
+</head>
+<body>
+ 
+	 <script th:src="@{https://code.jquery.com/jquery-3.5.1.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js}"></script>
+	 
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+	 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+	 
+	 <script>
+		 $(document).ready(function() {
+			    $('#example').DataTable( {
+			        dom: 'Bfrtip',
+			        buttons: [
+			            'copyHtml5',
+			            'excelHtml5',
+			            'csvHtml5',
+// 			            'pdfHtml5'
+			        ]
+			    } );
+			} );
+	 </script>
+	 
+	  <script>
+        function updateInputValue() {
+            var dropdown = document.getElementById("specialistDropdown");
+            var qualificationInput = document.getElementById("specialist");
+            var selectedOption = dropdown.options[dropdown.selectedIndex].text;
+            qualificationInput.value = selectedOption;
+        }
+    </script>
+    
+    <script>
+    
+    $(document).ready(function() {
+    	  $('#togglePassword').click(function() {
+    	    var passwordField = $('#password');
+    	    var passwordFieldType = passwordField.attr('type');
+    	    var toggleIcon = $(this);
+
+    	    if (passwordFieldType === 'password') {
+    	      passwordField.attr('type', 'text');
+    	      toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+    	    } else {
+    	      passwordField.attr('type', 'password');
+    	      toggleIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+    	    }
+    	  });
+    	});
+
+    </script>
+	 
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+	<div class="sidebar-brand">
+		<h2><span class="lab la-accusoft"></span><span>PRM</span></h2>
+	</div>
+	
+	<div class="sidebar-menu">
+		<ul>
+			 <li><a th:href="@{/doctor/dashboard}"><span
+						class="fas fa-desktop"></span> <span>Dashboard</span> </a></li>
+				<li><a th:href="@{/doctor/allAppointment}" class="active"><span
+						class="fa-solid fa-bed"></span> <span>All Appointments</span></a></li>
+				<li><a th:href="@{/doctor/todayAppointment}"><span
+						class="fa-solid fa-calendar-check"></span> <span>Today Appointments</span></a>
+				</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main-content">
+  <header>
+      <h2>
+      	<label for="nav-toggle">
+      		<span class="las la-bars"></span>
+      	</label>
+       All Appointments
+      </h2>
+      <div class="user-wrapper">
+          <img onclick="menuToggle();" th:src="@{'http://localhost:8080/img/'+${doctor.get().imageUrl}}" width ="45px" height="45px" class="ppp" >
+          <div onclick="menuToggle();" class="info">
+           	<h6 th:text="${doctor.get().fullName.substring(0, doctor.get().fullName.indexOf(' '))}"></h6>
+           	<small th:text="${doctor.get().specialist}"></small>
+          </div>
+      </div>
+  </header>
+  
+  <main>
+  		
+  	
+<!--   	Main contents goes here -->
+      
+      <div class="card shadow">
+      	<div class="card-body">
+	      	<div style="border-bottom:2px solid orange; margin-bottom:5px;">
+	      		<h1 class="p-2 text-center">All Appointments</h1>
+	      	</div> 
+      			<div class="container-fluid">
+      				<div class="table-responsive">
+      				<table id="example" class="table table-bordered cell-border table-responsive" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>Full Name</th>
+				                <th>Gender</th>
+				                <th>Age</th>
+				                <th>Appointment</th>
+				                <th>Email</th>
+				                <th>Mobile No</th>
+				                <th>Diseases</th>
+				                <th>Address</th>
+				                <th>Status</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="app : ${appointments}" th:if="${doctor.get().id == app.doctorId}">
+				                <td th:text="${app.fullName}"></td>
+				                <td th:text="${app.gender}"></td>
+				                <td th:text="${app.age}"></td>
+				                <td th:text="${app.appointDate}"></td>
+				                <td th:text="${app.email}"></td>
+				                <td th:text="${app.phNo}"></td>
+				                <td th:text="${app.diseases}"></td>
+				                <td th:text="${app.address}"></td>
+<!-- 				                <td th:text="${app.status}"></td> -->
+								<td>
+								    <div th:if="${app.status == null}">
+								        <button class="btn btn-warning">
+								            <i class="fas fa-hourglass-start"></i>
+								            Pending
+								        </button>
+								    </div>
+								    <div th:if="${app.status != null}" th:text="${app.status}"></div>
+								</td>
+				            </tr>
+				        </tbody>
+				        <tfoot>
+				            <tr>
+				                <th>Full Name</th>
+				                <th>Gender</th>
+				                <th>Age</th>
+				                <th>Appointment</th>
+				                <th>Email</th>
+				                <th>Mobile No</th>
+				                <th>Diseases</th>
+				                <th>Address</th>
+				                <th>Status</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+      				</div>
+      			</div>
+    	</div>
+    </div>
+    <div class="container">	
+             <div class = "menu">
+               <h3>Doctor <br><span th:text="${doctor.get().fullName}"></span></h3>
+                <ul>
+                     <li><img th:src="@{http://localhost:8080/img/homee.png}"><a th:href="@{/doctor/index}">Home</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/edit.png}"><a th:href="@{/developerInfo}">Developer info</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/SignOut.png}"><a th:href="@{/logout}">Sign Out</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal -->
+
+  </main>
+</div>	
+		<script>
+            function menuToggle(){
+                const toggleMenu = document.querySelector('.menu');
+                const toggleDiv = document.querySelector('.info');
+                const togglePic = document.querySelector('.ppp');
+                toggleMenu.classList.toggle('active');
+                toggleDiv.classList.toggle('active');
+                togglePic.classList.toggle('active');
+            }
+//             function extractPhoneNumber() {
+//             	  // Get the input value
+//             	  var input = document.getElementById("mobNo").value;
+            	  
+//             	  // Define the phone number pattern
+//             	  var phoneNumberPattern = /\d{3}-\d{3}-\d{4}/;
+            	  
+//             	  // Extract the phone number using the pattern
+//             	  var phoneNumber = input.match(phoneNumberPattern);
+            	  
+//             	  // Display the extracted phone number
+//             	  if (phoneNumber) {
+//             	    alert("Phone Number: " + phoneNumber[0]);
+//             	  } else {
+//             	    alert("Invalid phone number format!");
+//             	  }
+//             	}
+        </script>
+        
+        <style>
+		  /* Add hover effect */
+		  .input-group:hover {
+		    border-color: #DD2F6E !important; /* Green */
+		  }
+		  
+		  /* Change outline and icon color when field is selected */
+		  .input-group.focus-within {
+		    border-color: #DD2F6E !important; /* Green */
+		    outline: none;
+		    box-shadow: 0 0 0 0.2rem rgba(152, 251, 152, 0.25); /* Green */
+		  }
+		  
+		  .input-group.focus-within .input-group-text i {
+		    color: #DD2F6E !important; /* Green */
+		  }
+		  
+		  .input-group .form-control:focus {
+		    border-color: #DD2F6E !important; /* Green */
+		    box-shadow: 0 0 0 0.2rem rgba(152, 251, 152, 0.25); /* Green */
+		  }	
+			
+        </style>
+        
+        <script>
+		  // Add 'focus' class when input field is selected
+		  $('.input-group input').on('focus', function() {
+		    $(this).closest('.input-group').addClass('focus-within');
+		  });
+		  
+		  // Remove 'focus' class when input field loses focus
+		  $('.input-group input').on('blur', function() {
+		    $(this).closest('.input-group').removeClass('focus-within');
+		  });
+		</script>
+        
+</body>
+</html>

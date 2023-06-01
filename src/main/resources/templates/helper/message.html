@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>PRM Management</title>
+<link rel ="stylesheet" th:href="@{http://localhost:8080/css/message.css}"/>
+</head>
+<body>
+	<div class="container">
+		<button type="submit" class="btn" onclick="openPopup()">Verify</button>
+		<div class="popup" id="popup">
+			<img src="http://localhost:8080/img/tick.jpg">
+			<h2>Thank You!</h2>
+			<p th:text="${session.message.content}"></p>
+			<button type="button" onclick="closePopup()">OK</button>
+		</div>
+	</div>
+	
+	<script>
+		let popup = document.getElementById("popup");
+		function openPopup(){
+			popup.classList.add("open-popup");
+		}
+		function closePopup(){
+			popup.classList.remove("open-popup");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>PRM Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+	crossorigin="anonymous" 
+	referrerpolicy="no-referrer" />
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/css/patientsAdmin.css}">
+ 
+ 
+	 <!-- CSS file for Swal -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+	
+	<!-- JavaScript file for Swal -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+	 
+    <style>
+        .opp{
+        	display: none;
+        	visibility: hidden;
+        }
+        
+        .status-label {
+		    padding: 4px 10px;
+		    border-radius: 4px;
+		}
+		
+		.paid {
+		    background-color: #8BC34A;
+		    color: #ffffff;
+		}
+		
+		.paid::before {
+		    content: "\2714"; /* Unicode for tick icon */
+		    margin-right: 5px;
+		}
+		 
+        
+        .bt {
+		  padding: 0;
+		  background-color: transparent;
+		  border: none;
+		  color: inherit;
+		  font-size: inherit;
+		  padding-right:20px;
+		  cursor: pointer;
+		  align-items: center;
+		  justify-content: center;
+		}
+		
+		.btn-icon {
+		  display: inline-flex;
+		  align-items: center;
+		  justify-content: center;
+		  width: 24px;
+		  height: 24px;
+		}
+			
+		.btn-primary .fas {
+		  color: blue;
+		}
+		
+		.btn-danger .fas {
+		  color: red;
+		}
+		
+    </style> 
+    <style>
+     .swal-overlay--show-modal .swal-modal {
+	    opacity: 1;
+	    pointer-events: auto;
+	    box-sizing: border-box;
+	    -webkit-animation: showSweetAlert .3s;
+	    background: #fff;
+	    color:#000;
+	    animation: showSweetAlert .3s;
+	    will-change: transform;
+	  }
+	  
+	  .swal-text {
+		    font-size: 16px;
+		    position: relative;
+		    float: none;
+		    line-height: normal;
+		    vertical-align: top;
+		    text-align: left;
+		    display: inline-block;
+		    margin: 0;
+		    padding: 0 10px;
+		    font-weight: 400;
+		    color: black;
+		    max-width: calc(100% - 20px);
+		    overflow-wrap: break-word;
+		    box-sizing: border-box;
+		}
+    </style>
+    
+</head>
+<body>
+ 
+	 <script th:src="@{https://code.jquery.com/jquery-3.5.1.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js}"></script>
+	 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js}"></script>
+	 <script th:src="@{https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js}"></script>
+	 
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+	 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+	 
+	 <script>
+		 $(document).ready(function() {
+			    $('#example').DataTable( {
+			        dom: 'Bfrtip',
+			        buttons: [
+			            'copyHtml5',
+			            'excelHtml5',
+			            'csvHtml5',
+			            'pdfHtml5'
+			        ]
+			    } );
+			} );
+	 </script>
+	 
+	  <script>
+        function updateInputValue() {
+            var dropdown = document.getElementById("specialistDropdown");
+            var qualificationInput = document.getElementById("specialist");
+            var selectedOption = dropdown.options[dropdown.selectedIndex].text;
+            qualificationInput.value = selectedOption;
+        }
+    </script>
+    
+    
+    
+    <script>
+    
+    $(document).ready(function() {
+    	  $('#togglePassword').click(function() {
+    	    var passwordField = $('#password');
+    	    var passwordFieldType = passwordField.attr('type');
+    	    var toggleIcon = $(this);
+
+    	    if (passwordFieldType === 'password') {
+    	      passwordField.attr('type', 'text');
+    	      toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+    	    } else {
+    	      passwordField.attr('type', 'password');
+    	      toggleIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+    	    }
+    	  });
+    	});
+
+    </script>
+	 
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+	<div class="sidebar-brand">
+		<h2><span class="lab la-accusoft"></span><span>PRM</span></h2>
+	</div>
+	
+	<div class="sidebar-menu">
+		<ul>
+			<li><a th:href="@{/admin/dashboard}" ><span class="fas fa-desktop"></span>
+			<span>Dashboard</span>
+			</a></li>
+			  <li>
+                    <a th:href="@{/admin/patient}"><span class="fa-solid fa-bed"></span>
+                        <span>Patients</span></a>
+                </li>   
+                <li>
+                    <a th:href="@{/admin/appointment}"><span class="fa-solid fa-calendar-check"></span>
+                        <span>Appointments</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/doctor}"><span class="fa-solid fa-user-doctor"></span>
+                        <span>Doctors</span></a>
+                </li>
+                  <li>
+                    <a th:href="@{/admin/payment}" class="active"><span>&#8377;</span>
+                        <span>Payments</span></a>
+                </li>
+		</ul>
+	</div>
+</div>
+
+<div class="main-content">
+  <header>
+      <h2>
+      	<label for="nav-toggle">
+      		<span class="las la-bars"></span>
+      	</label>
+      	Payments
+      </h2>
+      <div class="user-wrapper">
+          <img onclick="menuToggle();" th:src="@{http://localhost:8080/img/proooo.png}" width ="45px" height="45px" class="ppp" >
+          <div onclick="menuToggle();" class="info">
+           	<h6 th:text="${user.substring(0, user.indexOf(' '))}"></h6>
+           	<small>Admin</small>
+          </div>
+      </div>
+  </header>
+  
+  <main>
+  		
+  	
+<!--   	Main contents goes here -->
+      
+      <div class="card shadow">
+      	<div class="card-body">
+	      	<div style="border-bottom:2px solid orange; margin-bottom:5px;">
+	      		<h1 class="p-2 text-center">Payments List</h1>
+	      	</div> 
+      			<div class="container-fluid">
+      				<table id="example" class="table table-bordered cell-border" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>ID</th>
+				                <th>User</th>
+				                <th>Payment ID</th>
+				                <th>Order ID</th>
+				                <th>Receipt</th>
+				                <th>&#8377; Amount</th>
+				                <th>Status</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="tran : ${transactions}" th:if="${tran.status == 'paid'}">
+				                <td th:text="MANTR0 + ${tran.id}"></td>
+				                <td th:text="${tran.user.fullname}"></td>
+				                <td th:text="${tran.paymentId}"></td>
+				                <td th:text="${tran.orderId}"></td>
+				                <td th:text="${tran.receipt}"></td>
+				                <td th:text="&#8377; + ${tran.amount}"></td>
+				                <td>
+								    <span th:text="${tran.status}" class="status-label" th:classappend="${tran.status == 'paid'} ? 'paid'"></span>
+								</td>
+				            </tr>
+				        </tbody>
+				        <tfoot>
+				            <tr>
+				                <th>ID</th>
+				                <th>User</th>
+				                <th>Payment ID</th>
+				                <th>Order ID</th>
+				                <th>Receipt</th>
+				                <th>&#8377; Amount</th>
+				                <th>Status</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+      			</div>
+    	</div>
+    </div>
+    <div class="container">	
+             <div class = "menu">
+                <h3>ADMIN <br><span th:text="${user}"></span></h3>
+                <ul>
+                     <li><img th:src="@{http://localhost:8080/img/homee.png}"><a th:href="@{/admin/index}">Home</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/edit.png}"><a th:href="@{/developerInfo}">Developer info</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/SignOut.png}"><a th:href="@{/logout}">Sign Out</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+  </main>
+</div>	
+		<script>
+            function menuToggle(){
+                const toggleMenu = document.querySelector('.menu');
+                const toggleDiv = document.querySelector('.info');
+                const togglePic = document.querySelector('.ppp');
+                toggleMenu.classList.toggle('active');
+                toggleDiv.classList.toggle('active');
+                togglePic.classList.toggle('active');
+            }
+        </script>
+        
+        <style>
+		  /* Add hover effect */
+		  .input-group:hover {
+		    border-color: #DD2F6E !important; /* Green */
+		  }
+		  
+		  /* Change outline and icon color when field is selected */
+		  .input-group.focus-within {
+		    border-color: #DD2F6E !important; /* Green */
+		    outline: none;
+		    box-shadow: 0 0 0 0.2rem rgba(152, 251, 152, 0.25); /* Green */
+		  }
+		  
+		  .input-group.focus-within .input-group-text i {
+		    color: #DD2F6E !important; /* Green */
+		  }
+		  
+		  .input-group .form-control:focus {
+		    border-color: #DD2F6E !important; /* Green */
+		    box-shadow: 0 0 0 0.2rem rgba(152, 251, 152, 0.25); /* Green */
+		  }	
+			
+        </style>
+        
+        <script>
+		  // Add 'focus' class when input field is selected
+		  $('.input-group input').on('focus', function() {
+		    $(this).closest('.input-group').addClass('focus-within');
+		  });
+		  
+		  // Remove 'focus' class when input field loses focus
+		  $('.input-group input').on('blur', function() {
+		    $(this).closest('.input-group').removeClass('focus-within');
+		  });
+		</script>
+<!--     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> -->
+<!--     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>         -->
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>PRM Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+	crossorigin="anonymous" 
+	referrerpolicy="no-referrer" />
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{http://localhost:8080/css/dashboard.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
+      
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" 
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    function validateAge() {
+        var ageInput = document.getElementById('age-input');
+        var age = parseInt(ageInput.value);
+
+        if (age>=110 || age <= 0) {
+            document.getElementById('age-error').textContent = 'Please enter a valid age.';
+            ageInput.value = ''; // Clear the input field
+        } else {
+            document.getElementById('age-error').textContent = '';
+        }
+    }
+
+    // Add event listener to the age input field
+    window.addEventListener('DOMContentLoaded', function() {
+        var ageInput = document.getElementById('age-input');
+        ageInput.addEventListener('blur', validateAge);
+    });
+</script>
+<script>
+        function validateDate() {
+            var appointDateInput = document.getElementById('appointDate');
+            var selectedDate = new Date(appointDateInput.value);
+            var currentDate = new Date();
+
+            // Set the time to midnight for both dates to compare only the dates
+            selectedDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0);
+
+            if (selectedDate < currentDate) {
+                alert("Please select a date equal to or greater than today.");
+                appointDateInput.value = ''; // Clear the input field
+            }
+        }
+    </script>
+    <script>
+    function validatePhoneNumber() {
+        var phoneNumberInput = document.getElementById('phno-input');
+        var phoneNumber = phoneNumberInput.value;
+        var isValidPhoneNumber = /^[6-9]\d{9}$/.test(phoneNumber);
+
+        if (!isValidPhoneNumber) {
+            alert('Please enter a valid mobile number');
+            phoneNumberInput.value = ''; // Clear the input field
+        }
+    }
+
+    // Add event listener to the phone number input field
+    window.addEventListener('DOMContentLoaded', function() {
+        var phoneNumberInput = document.getElementById('phno-input');
+        phoneNumberInput.addEventListener('blur', validatePhoneNumber);
+    });
+</script>
+    
+<script>
+    function updateInputValue() {
+        var selectedOption = document.querySelector("#specialistDropdown option:checked").text;
+        document.getElementById("specialist").value = selectedOption;
+    }
+    function updateHiddenInput(selectElement) {
+        var hiddenInput = document.getElementById("genderHiddenInput");
+        hiddenInput.value = selectElement.value;
+    }
+
+    // Set the initial value on page load
+    window.onload = function() {
+        var selectElement = document.getElementById("genderSelect");
+        var hiddenInput = document.getElementById("genderHiddenInput");
+        hiddenInput.value = selectElement.value;
+    };
+</script>
+
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+	<div class="sidebar-brand">
+		<h2><span class="lab la-accusoft"></span><span>PRM</span></h2>
+	</div>
+	
+	<div class="sidebar-menu">
+		<ul>
+			   
+                <li>
+                    <a th:href="@{/user/appointment}" class="active"><span class="fas fa-calendar-plus"></span>
+                        <span>Appointment</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/user/showAppointment}"><span class="fa-solid fa-calendar-check"></span>
+                        <span>Appointments</span></a>
+                </li>
+		</ul>
+	</div>
+</div>
+
+<div class="main-content">
+  <header>
+      <h2>
+      	<label for="nav-toggle">
+      		<span class="las la-bars"></span>
+      	</label>
+      	New Appointment
+      </h2>
+      <div class="user-wrapper">
+          <img onclick="menuToggle();" th:src="@{http://localhost:8080/img/proooo.png}" width ="45px" height="45px" class="ppp" >
+          <div onclick="menuToggle();" class="info">
+           	<h6 th:text="${user.get().fullname.substring(0, user.get().fullname.indexOf(' '))}"></h6>
+           	<small>Patient</small>
+          </div>
+      </div>
+  </header>
+  <main>
+  		<div class="container">	
+		<div class="row">
+			<div class="col-md-6 p-5" style="display: flex; justify-content: center;">
+				<img alt="" style="width:60%; border-radius:30%; align-self: center; box-shadow: rgba(0,0,0,0.6)" th:src="@{http://localhost:8080/img/doctor1.jpg}">
+			</div>
+
+			<div class="col-md-6 mt-5">
+				<div class="card paint-card mt-4">
+					<div class="card-body">
+						<div>
+						<p class="text-center fs-3">User Appointment</p>
+						<button onclick="paymentStart()" style="margin-top:-6%; margin-left:80%" class="btn btn-primary" >&#8377; Pay Online</button>
+					 </div>
+						 <hr style="margin-top:-1%">
+					
+						<br>
+						<form style="margin-top:-7%;" class="row g-3" action="/user/appAppointment" method="post">
+
+							<input type="hidden" name="userid" th:value="${user.get().id }">
+
+							<div class="col-md-6">
+								<label for="inputEmail4" class="form-label">Full Name</label> 
+								<input th:value="${user.get().fullname}" type="text" class="form-control" name="fullname">
+							</div>
+
+							<div class="col-md-6">
+								<label>Gender</label> 
+								<select class="form-control" name="gender" required onchange="updateHiddenInput(this)" id="genderSelect">
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
+							</div>
+							<input type="hidden" id="genderHiddenInput" name="selGender" value="male">
+							<div class="col-md-6">
+							    <label for="inputEmail4" class="form-label">Age</label>
+							    <input required type="number" class="form-control" name="age" id="age-input">
+							    <small id="age-error" style="color: red;"></small>
+							</div>
+
+							<div class="col-md-6">
+						        <label for="inputEmail4" class="form-label">Appointment Date</label> 
+						        <input type="date" class="form-control" required name="appoint_date" id="appointDate" onchange="validateDate()">
+						    </div>
+
+							<div class="col-md-6">
+								<label for="inputEmail4" class="form-label">Email</label> 
+								<input th:value="${user.get().email}" readonly type="email" class="form-control" name="email">
+							</div>
+
+							<div class="col-md-6">
+							    <label for="inputEmail4" class="form-label">Phone No</label>
+							    <input maxlength="10" required type="text" class="form-control" name="phno" id="phno-input">
+							</div>
+
+
+							<div class="col-md-6">
+								<label for="inputEmail4" class="form-label">Diseases</label> <input
+									required type="text" class="form-control" name="diseases">
+							</div>
+
+							<div class="col-md-6">
+								<label for="inputPassword4" class="form-label">Doctor</label> 
+								<select required class="form-control" name="doct" id="specialistDropdown" onchange="updateInputValue()">
+								    <option value="">--select--</option>
+								    <option th:each="doctor : ${doctors}" th:value="${doctor.fullName}" th:text="${doctor.id +' '+ doctor.fullName + ' - (' + doctor.specialist}+ ')'"></option>
+								</select>
+
+							</div>
+			             <input type="hidden" name="doctorName" id="specialist">
+							<div class="col-md-12">
+								<label>Full Address</label>
+								<textarea required name="address" class="form-control" rows="3"
+									cols=""></textarea>
+							</div>
+
+					           <button  class="col-md-6 offset-md-3 btn btn-primary">Appointment</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+  		
+             <div class = "menu">
+                <h3>Patient <br><span th:text="${user.get().fullname}"></span></h3>
+                <ul>
+                     <li><img th:src="@{http://localhost:8080/img/homee.png}"><a th:href="@{/user/index}">Home</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/edit.png}"><a th:href="@{/developerInfo}">Developer info</a></li>
+                    <li><img th:src="@{http://localhost:8080/img/SignOut.png}"><a th:href="@{/logout}">Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+  </main>
+</div>
+		<script>
+            function menuToggle(){
+                const toggleMenu = document.querySelector('.menu');
+                const toggleDiv = document.querySelector('.info');
+                const togglePic = document.querySelector('.ppp');
+                toggleMenu.classList.toggle('active');
+                toggleDiv.classList.toggle('active');
+                togglePic.classList.toggle('active');
+            }
+        </script>
+        <script src="http://localhost:8080/jss/payment.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>

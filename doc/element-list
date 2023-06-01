@@ -1,0 +1,10 @@
+com.prms
+com.prms.controller
+com.prms.entity
+com.prms.exception
+com.prms.helper
+com.prms.registration
+com.prms.repo
+com.prms.security
+com.prms.security.event
+com.prms.service

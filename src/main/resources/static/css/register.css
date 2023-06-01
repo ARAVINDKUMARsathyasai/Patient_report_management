@@ -1,0 +1,60 @@
+form {
+    width:400px;
+    display:flex;
+    flex-direction:column;
+    border-radius:20px;
+    padding:20px;   
+}
+
+form input {
+    height:35px;
+}
+
+form input[type="submit"] {
+    width:50%;
+    border-radius:10px;
+    border:none;
+    background:blue;
+    color:white;
+}
+
+form input[type="submit"]:hover {
+    cursor:pointer;
+}
+
+form .form-check{
+	margin-top:-8%;
+	margin-bottom:-1%;
+}
+form .form-check .form-check-input{
+	margin-left:17%;
+	margin-right:3%;
+}
+form .form-check label{
+	margin-top:1%;
+    font-size: 15px; 
+    margin-left:2px;
+    color: #000;     
+    font-weight: 100; 
+    font-family: "lusida bright";
+}
+.alert{
+	height:5px;
+	padding :15;
+	align-items:center;
+	font-size : 15px;
+	margin-top:-16%;
+}
+a{
+	text-decoration:none;
+}
+.alert h1{
+	margin-top:-3%;
+}
+.stop {
+    transition:1s;
+}
+
+.move {
+    transform:translateX(100%);
+}

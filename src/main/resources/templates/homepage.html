@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>PRM System</title>
+<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+rel="stylesheet" 
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+crossorigin="anonymous">
+
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer" />
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+crossorigin="anonymous"></script>
+<link rel = "stylesheet" th:href="@{/css/overallstyle.css}">
+<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="homePage"><i class="fa-solid fa-house-chimney-medical"></i>  Patient Record Management</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="adminLogin"><i class="fa-solid fa-right-to-bracket"></i> ADMIN</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="doctorLogin"><i class="fa-solid fa-stethoscope"></i> DOCTOR</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="userLogin"><i class="fa-solid fa-hospital-user"></i> PATIENT</a>
+		        </li>
+		      </ul>
+		      
+		    </div>
+		  </div>
+		</nav>
+  
+		<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+	  <div class="carousel-indicators">
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+	  </div>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img th:src="@{img/hospital2.jpg}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	    <div class="carousel-item">
+	      <img th:src="@{img/lab1.jpg}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	    <div class="carousel-item">
+	      <img th:src="@{img/hospital1.jpg}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	    <div class="carousel-item">
+	      <img th:src="@{img/xray.png}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	    <div class="carousel-item">
+	      <img th:src="@{img/mri.png}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	    <div class="carousel-item">
+	      <img th:src="@{img/op.jpg}" class="d-block w-100" alt="..." height ="600px">
+	    </div>
+	  </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+	</div>
+	
+	<div class="container p-3">
+	<hr>
+		<p class = "text-center fs-2">Key Features of our hospital</p>
+			<div class = "row">
+				<div class = "col-md-8 p-5">
+					<div class = "row">
+						<div class = "col-md-6">
+							<div class = "card point-card">
+								<div class = "card-body">
+									<p class = "fs-5">Medical Equipment</p><br>
+									<p>Essential medical equipment and tools for diagnosis, monitoring and treatment of 
+									patients such as MRI, X-ray machines, and ventilators.</p>
+								</div>
+							</div>
+						</div>
+						
+						<div class = "col-md-6">
+							<div class = "card point-card">
+								<div class = "card-body">
+									<p class = "fs-5">Trained Staff</p><br>
+									<p>Highly skilled and trained staff, including doctors, nurses, and support staff 
+									who provide quality medical care to patients.</p>
+								</div>
+							</div>
+						</div>
+						
+						<div class = "col-md-6 mt-2">
+							<div class = "card point-card">
+								<div class = "card-body">
+									<p class = "fs-5">Patient Rooms</p><br>
+									<p>Comfortable patient rooms with amenities such as clean bedding, adjustable lighting, and temperature control,
+									 which can aid in patient recovery. </p><br>
+								</div>
+							</div>
+						</div>
+						
+						<div class = "col-md-6 mt-2">
+							<div class = "card point-card">
+								<div class = "card-body" >
+									<p class = "fs-5">Emergency Services</p><br>
+									<p>Emergency services such as ambulance transportation, emergency department,
+									 and on-call physicians to provide rapid response in times of medical crises.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class = "col-md-4">
+				 <img alt="" src="img/docgroup1.jpg" height = "400px" width = "500px">
+				</div>
+			</div>
+			
+			<hr>
+			<div class = "container p-2">
+				<p class="text-center fs-2">Our Team</p><br><br>
+				<div class = "row">
+					<div class = "col-md-3">
+						<div class = "card point-card">
+							<div class = "card-body text-center">
+								<img alt="" src="img/doctor1.jpg" width = "250px" height = "300px">
+								<p class="fw-bold fs-5">Dr. Aravind Kumar</p>
+								<p class = "fs-7">(CEO & Chairman)</p>							
+							</div>
+						</div>
+					</div>
+					
+					<div class = "col-md-3">
+						<div class = "card point-card">
+							<div class = "card-body text-center">
+								<img alt="" src="img/cardilogis.jpeg" width = "250px" height = "300px">
+								<p class="fw-bold fs-5">Dr. Ramakanta Panda</p>
+								<p class = "fs-7">(Cardiologists)</p>							
+							</div>
+						</div>
+					</div>
+					
+					<div class = "col-md-3">
+						<div class = "card point-card">
+							<div class = "card-body text-center">
+								<img alt="" src="img/dentist.jpg" width = "250px" height = "300px">
+								<p class="fw-bold fs-5">Dr. Balasubramanya K.V</p>
+								<p class = "fs-7">(Dentist)</p>							
+							</div>
+						</div>
+					</div>
+					
+					<div class = "col-md-3">
+						<div class = "card point-card">
+							<div class = "card-body text-center">
+								<img alt="" src="img/childrenDoc.jpg" width = "250px" height = "300px">
+								<p class="fw-bold fs-5">Dr. Somit Jain</p>
+								<p class = "fs-7">(Nutritionist)</p>							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class ="container-fluid p-1 bg-success text-center text-white">
+	 <p>@copyright Aravindkumar</p>
+	</div>
+</body>
+</html>
