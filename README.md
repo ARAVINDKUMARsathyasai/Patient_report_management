@@ -30,7 +30,6 @@
 * Enter the following address in the browser's address bar: **http://localhost:8080/**
 * Follow the instructions provided in the user interface to proceed.
 
-<hr>
-<br>
+
 ### Thank You
 Thank you for using the Patient Report Management System. If you have any further questions or need assistance, please don't hesitate to reach out.
